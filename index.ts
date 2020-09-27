@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 app.use(cocapi);
 
-const server: any = app.listen(Number(process.env.port) || 3000, '0.0.0.0', () => {
+const server: any = app.listen(Number(process.env.PORT) || 3000, '0.0.0.0', () => {
     const host = server.address().address;
     const port = server.address().port;
     console.log(`WebServer Started at http://${host}:${port}`);
