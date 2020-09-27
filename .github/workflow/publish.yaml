@@ -1,0 +1,26 @@
+name: publish
+
+on:
+  push:
+    branches:
+      - prod
+      - release/*
+
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  APP_NAME: ${{ 'apis-gateway' }}
+
+jobs:
+  heroku:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout Production
+        uses: actions/checkout@v1
+      - name: Docker Build Image
+        run: |
+          docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+          docker build -t $APP_NAME -t registry.heroku.com/$APP_NAME/web .
+      - name: Docker Publish on Heroku
+        run: |
+          docker push registry.heroku.com/$APP_NAME/web
+          heroku container:release web -a $APP_NAME
