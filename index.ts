@@ -2,6 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import { cocapi } from './apis';
 
+setInterval(() => {
+    fetch('https://apis-gateway.herokuapp.com');
+    console.log('self ping each 20 minutes...');
+}, 9e5)
+
 let app = express();
 app.use(express.json());
 app.use(cors());
