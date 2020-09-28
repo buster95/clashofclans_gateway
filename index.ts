@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import axios from 'axios';
 import { cocapi } from './apis';
 
 setInterval(() => {
-    fetch('https://apis-gateway.herokuapp.com');
+    axios.get('https://apis-gateway.herokuapp.com');
     console.log('self ping each 20 minutes...');
 }, 9e5)
 
